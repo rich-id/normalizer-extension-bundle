@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: true
+
+    Tests\RichCongress\NormalizerBundle\Resources\Serializer\Normalizer\Extension\DummyNormalizerExtension: ~
+
+    Tests\RichCongress\NormalizerBundle\Resources\Serializer\Normalizer\Extension\NotNormalizerExtension:
+        tags:
+            - { name: 'serializer.normalizer.extension' }

@@ -1,0 +1,31 @@
+# Managed by Composer
+/vendor
+
+# PHPUnit
+/.phpunit
+
+# Auto-saved files
+*~
+
+# Mac
+/.DS_store
+
+# PhpStorm
+/.idea
+
+# Composer
+/composer.phar
+
+# PHPUnit
+/.phpunit.result.cache
+/phpunit-filter.php
+/coverage
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
