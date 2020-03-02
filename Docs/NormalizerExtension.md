@@ -3,17 +3,17 @@
 This bundle brings the Normalizer Extension. It is a component that behaves like a regular [Normalizer](https://symfony.com/doc/current/serializer/normalizers.html) but acts after the normalization process. The goal is to provide a way to add data to the normalization process without impacting the default behaviour.
 
 
-## VirtualPropertyNormalizerExtension
+## SerializedNameNormalizerExtension
 
-This extension provides support for the `@VirtualProperty` annotation. You must have the appropriated [configuration](Configuration.md) to use it. This annotation has to be set on a method of an objet like following.
+This extension provides support for the `@SerializedName` annotation. You must have the appropriated [configuration](Configuration.md) to use it. This annotation has to be set on a method of an objet like following.
 
 ```php
-use RichCongress\NormalizerBundle\Serializer\Annotation\VirtualProperty;
+use RichCongress\NormalizerBundle\Serializer\Annotation\SerializedName;
 
 class DummyEntity
 {
     /**
-     * @VirtualProperty("data", groups={"dummy_entity_wonderful_data"})
+     * @SerializedName("data", groups={"dummy_entity_wonderful_data"})
      * 
      * @return array
      */

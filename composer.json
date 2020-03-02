@@ -28,7 +28,7 @@
             "RichCongress\\NormalizerBundle\\": ""
         },
         "files": [
-            "./Serializer/Annotation/VirtualProperty.php"
+            "./Serializer/Annotation/SerializedName.php"
         ]
     },
     "autoload-dev": {

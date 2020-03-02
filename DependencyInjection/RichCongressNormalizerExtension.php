@@ -4,7 +4,7 @@ namespace RichCongress\NormalizerBundle\DependencyInjection;
 
 use RichCongress\NormalizerBundle\DependencyInjection\CompilerPass\SerializerPass;
 use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
-use RichCongress\NormalizerBundle\Serializer\NameConverter\VirtualPropertyNameConverter;
+use RichCongress\NormalizerBundle\Serializer\NameConverter\SerializedNameNameConverter;
 use RichCongress\NormalizerBundle\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -36,7 +36,7 @@ class RichCongressNormalizerExtension extends Extension
 
         self::autoconfigure($container);
         self::configureSerializer($container);
-        self::configureVirtualProperty($container, $bundleConfig);
+        self::configureSerializedName($container, $bundleConfig);
     }
 
     /**
@@ -70,16 +70,16 @@ class RichCongressNormalizerExtension extends Extension
      *
      * @return void
      */
-    protected static function configureVirtualProperty(ContainerBuilder $container, array $bundleConfig): void
+    protected static function configureSerializedName(ContainerBuilder $container, array $bundleConfig): void
     {
         if (!$bundleConfig['virtual_property']) {
             return;
         }
 
-        $definition = new Definition(VirtualPropertyNameConverter::class);
+        $definition = new Definition(SerializedNameNameConverter::class);
         $definition->setAutowired(true);
         $definition->setDecoratedService('serializer.name_converter.metadata_aware');
-        $definition->setArgument('$innerNameConverter', new Reference('serializer.name_converter.virtual_property.inner'));
-        $container->setDefinition('serializer.name_converter.virtual_property', $definition);
+        $definition->setArgument('$innerNameConverter', new Reference('serializer.name_converter.serialized_name.inner'));
+        $container->setDefinition('serializer.name_converter.serialized_name', $definition);
     }
 }

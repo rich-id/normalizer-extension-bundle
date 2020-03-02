@@ -4,19 +4,19 @@ namespace RichCongress\NormalizerBundle\Serializer\NameConverter;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
-use RichCongress\NormalizerBundle\Serializer\Annotation\VirtualProperty;
+use RichCongress\NormalizerBundle\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\NameConverter\AdvancedNameConverterInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
- * Class VirtualPropertyNameConverter
+ * Class SerializedNameNameConverter
  *
  * @package   RichCongress\NormalizerBundle\Serializer\NameConverter
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class VirtualPropertyNameConverter implements AdvancedNameConverterInterface
+class SerializedNameNameConverter implements AdvancedNameConverterInterface
 {
     /**
      * @var AnnotationReader
@@ -29,7 +29,7 @@ class VirtualPropertyNameConverter implements AdvancedNameConverterInterface
     protected $innerNameConverter;
 
     /**
-     * VirtualPropertyNameConverter constructor.
+     * SerializedNameNameConverter constructor.
      *
      * @param NameConverterInterface $innerNameConverter
      *
@@ -54,7 +54,7 @@ class VirtualPropertyNameConverter implements AdvancedNameConverterInterface
     public function normalize($propertyName, string $class = null, string $format = null, array $context = []): string
     {
         if ($class !== null) {
-            $virtualPropertyName = $this->getVirtualPropertyName($propertyName, $class, $context);
+            $virtualPropertyName = $this->getSerializedNameName($propertyName, $class, $context);
 
             if ($virtualPropertyName !== null) {
                 return $virtualPropertyName;
@@ -91,7 +91,7 @@ class VirtualPropertyNameConverter implements AdvancedNameConverterInterface
      *
      * @throws \ReflectionException
      */
-    protected function getVirtualPropertyName(string $propertyName, string $class, array $context): ?string
+    protected function getSerializedNameName(string $propertyName, string $class, array $context): ?string
     {
         $reflectionClass = new \ReflectionClass($class);
         $groups = $context['groups'] ?? [];
@@ -99,7 +99,7 @@ class VirtualPropertyNameConverter implements AdvancedNameConverterInterface
             ? $propertyName
             : 'get' . ucfirst($propertyName);
 
-        $virtualProperty = $this->findVirtualProperty($reflectionClass, $methodName);
+        $virtualProperty = $this->findSerializedName($reflectionClass, $methodName);
 
         if ($virtualProperty !== null && static::hasCommonEntry((array) $groups, (array) $virtualProperty->groups)) {
             return $virtualProperty->name;
@@ -116,14 +116,14 @@ class VirtualPropertyNameConverter implements AdvancedNameConverterInterface
      *
      * @throws \ReflectionException
      */
-    protected function findVirtualProperty(\ReflectionClass $reflectionClass, string $methodName) :?VirtualProperty
+    protected function findSerializedName(\ReflectionClass $reflectionClass, string $methodName) :?SerializedName
     {
         while ($reflectionClass instanceof \ReflectionClass) {
             if ($reflectionClass->hasMethod($methodName)) {
                 $reflectionMethod = $reflectionClass->getMethod($methodName);
-                $virtualProperty = $this->annotationReader->getMethodAnnotation($reflectionMethod, VirtualProperty::class);
+                $virtualProperty = $this->annotationReader->getMethodAnnotation($reflectionMethod, SerializedName::class);
 
-                if ($virtualProperty instanceof VirtualProperty) {
+                if ($virtualProperty instanceof SerializedName) {
                     /** @var Groups|null $groupsAnnotation */
                     $groupsAnnotation = $this->annotationReader->getMethodAnnotation($reflectionMethod, Groups::class);
 

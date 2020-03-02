@@ -4,10 +4,10 @@ namespace Tests\RichCongress\NormalizerBundle\Serializer\Normalizer;
 
 use RichCongress\Bundle\UnitBundle\TestConfiguration\Annotation\WithContainer;
 use RichCongress\NormalizerBundle\Exception\AttributeNotFoundException;
-use Tests\RichCongress\NormalizerBundle\Resources\DummyNormalizerExtension;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Tests\RichCongress\NormalizerBundle\Resources\Entity\DummyEntity;
+use Tests\RichCongress\NormalizerBundle\Resources\Serializer\Normalizer\Extension\DummyNormalizerExtension;
 use Tests\RichCongress\NormalizerBundle\Resources\TestCase\NormalizerExtensionTestCase;
 
 /**

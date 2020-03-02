@@ -14,15 +14,15 @@ The normalizer-bundle provides extended functionnalities for the Symfony Seriali
 
 # Quick start
 
-The normalizer-bundle is ready out of the box. The VirtualProperty will be added to the normalized data when you use the annotation.
+The normalizer-bundle is ready out of the box. The SerializedName will be added to the normalized data when you use the annotation.
 
 ```php
-use RichCongress\NormalizerBundle\Serializer\Annotation\VirtualProperty;
+use RichCongress\NormalizerBundle\Serializer\Annotation\SerializedName;
 
 class DummyEntity
 {
     /**
-     * @VirtualProperty("data", groups={"dummy_entity_wonderful_data"})
+     * @SerializedName("data", groups={"dummy_entity_wonderful_data"})
      * 
      * @return array
      */
@@ -83,7 +83,7 @@ class DummyEntityNormalizerExtension extends AbstractObjectNormalizerExtension
 2. [Getting started](#2-getting-started)
     - [Configuration](Docs/Configuration.md)
     - [Normalizer Extension](Docs/NormalizerExtension.md)
-        - [VirtualPropertyNormalizerExtension](Docs/NormalizerExtension.md#virtualpropertynormalizerextension)
+        - [SerializedNameNormalizerExtension](Docs/NormalizerExtension.md#virtualpropertynormalizerextension)
         - [AbstractObjectNormalizerExtension](Docs/NormalizerExtension.md#abstractobjectnormalizerextension)
         - [Write your own Normalizer Extension](Docs/NormalizerExtension.md#write-your-own-normalizer-extension)
 4. [Versioning](#3-versioning)
@@ -115,7 +115,7 @@ new RichCongress\NormalizerBundle\RichCongressNormalizerBundle::class => ['all' 
 
 - [Configuration](Docs/Configuration.md)
 - [Normalizer Extension](Docs/NormalizerExtension.md)
-    - [VirtualPropertyNormalizerExtension](Docs/NormalizerExtension.md#virtualpropertynormalizerextension)
+    - [SerializedNameNormalizerExtension](Docs/NormalizerExtension.md#virtualpropertynormalizerextension)
     - [AbstractObjectNormalizerExtension](Docs/NormalizerExtension.md#abstractobjectnormalizerextension)
     - [Write your own Normalizer Extension](Docs/NormalizerExtension.md#write-your-own-normalizer-extension)
 

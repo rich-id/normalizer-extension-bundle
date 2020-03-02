@@ -3,7 +3,7 @@
 namespace RichCongress\NormalizerBundle\Serializer\Annotation;
 
 /**
- * Class VirtualProperty
+ * Class SerializedName
  *
  * @package   RichCongress\NormalizerBundle\Serializer\Annotation
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
@@ -11,7 +11,7 @@ namespace RichCongress\NormalizerBundle\Serializer\Annotation;
  *
  * @Annotation
  */
-class VirtualProperty
+class SerializedName
 {
     /**
      * @var string

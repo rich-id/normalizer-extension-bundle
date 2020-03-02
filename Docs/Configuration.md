@@ -11,5 +11,5 @@ The following list gives more precisions about the configuration:
 
 - `virtual_property`
 
-Enables the `VirtualPropertyNormalizerExtension` and thus support the `VirtualProperty` annotation. Default `true`. 
+Enables the `SerializedNameNormalizerExtension` and thus support the `SerializedName` annotation. Default `true`. 
 

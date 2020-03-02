@@ -3,7 +3,7 @@
 namespace Tests\RichCongress\NormalizerBundle\Resources\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use RichCongress\NormalizerBundle\Serializer\Annotation\VirtualProperty;
+use RichCongress\NormalizerBundle\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -33,12 +33,12 @@ class DummyEntity
     }
 
     /**
-     * @VirtualProperty("doesItHasVirtualProperty")
+     * @SerializedName("doesItHasSerializedName")
      * @Groups("dummy_entity_has_virtual_property")
      *
      * @return bool
      */
-    public function hasVirtualProperty(): bool
+    public function hasSerializedName(): bool
     {
         return true;
     }

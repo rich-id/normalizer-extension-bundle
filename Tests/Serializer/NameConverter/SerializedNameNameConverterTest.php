@@ -4,25 +4,25 @@ namespace RichCongress\NormalizerBundle\Tests\Serializer\NameConverter;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use RichCongress\Bundle\UnitBundle\TestCase\TestCase;
-use RichCongress\NormalizerBundle\Serializer\NameConverter\VirtualPropertyNameConverter;
+use RichCongress\NormalizerBundle\Serializer\NameConverter\SerializedNameNameConverter;
 use RichCongress\NormalizerBundle\Tests\Resources\Serializer\NameConverter\DummyNameConverter;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Tests\RichCongress\NormalizerBundle\Resources\Entity\DummyEntity;
 
 /**
- * Class VirtualPropertyNameConverterTest
+ * Class SerializedNameNameConverterTest
  *
  * @package   RichCongress\NormalizerBundle\Tests\Serializer\NameConverter
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  *
- * @covers \RichCongress\NormalizerBundle\Serializer\NameConverter\VirtualPropertyNameConverter
+ * @covers \RichCongress\NormalizerBundle\Serializer\NameConverter\SerializedNameNameConverter
  */
-class VirtualPropertyNameConverterTest extends TestCase
+class SerializedNameNameConverterTest extends TestCase
 {
     /**
-     * @var VirtualPropertyNameConverter
+     * @var SerializedNameNameConverter
      */
     protected $nameConverter;
 
@@ -34,7 +34,7 @@ class VirtualPropertyNameConverterTest extends TestCase
     protected function beforeTest(): void
     {
         $innerNameConverter = new CamelCaseToSnakeCaseNameConverter();
-        $this->nameConverter = new VirtualPropertyNameConverter($innerNameConverter);
+        $this->nameConverter = new SerializedNameNameConverter($innerNameConverter);
     }
 
     /**
@@ -58,7 +58,7 @@ class VirtualPropertyNameConverterTest extends TestCase
     public function testNormalizeWithoutClassWithAdvancedInnerNameConverter(): void
     {
         $innerNameConverter = new DummyNameConverter();
-        $nameConverter = new VirtualPropertyNameConverter($innerNameConverter);
+        $nameConverter = new SerializedNameNameConverter($innerNameConverter);
         $result = $nameConverter->normalize('variableName');
 
         self::assertSame('variableName_empty', $result);
@@ -81,7 +81,7 @@ class VirtualPropertyNameConverterTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function testNormalizeNoVirtualProperty(): void
+    public function testNormalizeNoSerializedName(): void
     {
         $result = $this->nameConverter->normalize('isEntityBoolean', DummyEntity::class);
 
@@ -93,11 +93,11 @@ class VirtualPropertyNameConverterTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function testNormalizeWithVirtualPropertyFoundButNotInContext(): void
+    public function testNormalizeWithSerializedNameFoundButNotInContext(): void
     {
-        $result = $this->nameConverter->normalize('hasVirtualProperty', DummyEntity::class);
+        $result = $this->nameConverter->normalize('hasSerializedName', DummyEntity::class);
 
-        self::assertSame('has_virtual_property', $result);
+        self::assertSame('has_serialized_name', $result);
     }
 
     /**
@@ -105,10 +105,10 @@ class VirtualPropertyNameConverterTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function testNormalizeWithVirtualProperty(): void
+    public function testNormalizeWithSerializedName(): void
     {
         $result = $this->nameConverter->normalize(
-            'hasVirtualProperty',
+            'hasSerializedName',
             DummyEntity::class,
             null,
             [
@@ -116,7 +116,7 @@ class VirtualPropertyNameConverterTest extends TestCase
             ]
         );
 
-        self::assertSame('doesItHasVirtualProperty', $result);
+        self::assertSame('doesItHasSerializedName', $result);
     }
 
     /**
@@ -137,7 +137,7 @@ class VirtualPropertyNameConverterTest extends TestCase
     public function testDenormalizeWithoutClassWithAdvancedInnerNameConverter(): void
     {
         $innerNameConverter = new DummyNameConverter();
-        $nameConverter = new VirtualPropertyNameConverter($innerNameConverter);
+        $nameConverter = new SerializedNameNameConverter($innerNameConverter);
         $result = $nameConverter->denormalize('variableName');
 
         self::assertSame('variableName_empty', $result);
