@@ -33,7 +33,8 @@ class DummyEntity
     }
 
     /**
-     * @VirtualProperty("hasVirtualProperty", groups={"dummy_entity_has_virtual_property"})
+     * @VirtualProperty("doesItHasVirtualProperty")
+     * @Groups("dummy_entity_has_virtual_property")
      *
      * @return bool
      */

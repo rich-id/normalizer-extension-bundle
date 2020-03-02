@@ -9,12 +9,12 @@ This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/richcongress/normalizer-bundle/issues)
 [![License](https://img.shields.io/badge/license-MIT-red.svg)](LICENSE.md)
 
-The serializer-bundle provides extended functionnalities for the Symfony Serializer.
+The normalizer-bundle provides extended functionnalities for the Symfony Serializer.
 
 
 # Quick start
 
-The serializer-bundle requires is ready out of the box. It will add the VirtualProperty functions to the serialized data.
+The normalizer-bundle is ready out of the box. The VirtualProperty will be added to the normalized data when you use the annotation.
 
 ```php
 use RichCongress\NormalizerBundle\Serializer\Annotation\VirtualProperty;
@@ -122,7 +122,7 @@ new RichCongress\NormalizerBundle\RichCongressNormalizerBundle::class => ['all' 
 
 # 3. Versioning
 
-serializer-bundle follows [semantic versioning](https://semver.org/). In short the scheme is MAJOR.MINOR.PATCH where
+normalizer-bundle follows [semantic versioning](https://semver.org/). In short the scheme is MAJOR.MINOR.PATCH where
 1. MAJOR is bumped when there is a breaking change,
 2. MINOR is bumped when a new feature is added in a backward-compatible way,
 3. PATCH is bumped when a bug is fixed in a backward-compatible way.
@@ -162,6 +162,6 @@ docker-compose exec application bash
 
 # 6. License
 
-serializer-bundle is distributed under the terms of the MIT license.
+normalizer-bundle is distributed under the terms of the MIT license.
 
 See [LICENSE](LICENSE.md) for details.

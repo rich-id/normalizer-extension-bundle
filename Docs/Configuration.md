@@ -3,7 +3,7 @@
 The configuration can be edited from the `rich_congress_serializer.yaml` file. Here is a sample of configuration:
 
 ```yaml
-rich_congress_unit:
+rich_congress_normalizer:
     virtual_property: true
 ```
 

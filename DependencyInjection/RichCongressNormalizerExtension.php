@@ -4,11 +4,12 @@ namespace RichCongress\NormalizerBundle\DependencyInjection;
 
 use RichCongress\NormalizerBundle\DependencyInjection\CompilerPass\SerializerPass;
 use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
-use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\VirtualPropertyNormalizerExtension;
+use RichCongress\NormalizerBundle\Serializer\NameConverter\VirtualPropertyNameConverter;
 use RichCongress\NormalizerBundle\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class RichCongressNormalizerExtension
@@ -75,9 +76,10 @@ class RichCongressNormalizerExtension extends Extension
             return;
         }
 
-        $definition = new Definition(VirtualPropertyNormalizerExtension::class);
-        $definition->addTag(SerializerPass::NORMALIZER_EXTENSION_TAG);
+        $definition = new Definition(VirtualPropertyNameConverter::class);
         $definition->setAutowired(true);
-        $container->setDefinition('serializer.normalizer.extension.virtual_property', $definition);
+        $definition->setDecoratedService('serializer.name_converter.metadata_aware');
+        $definition->setArgument('$innerNameConverter', new Reference('serializer.name_converter.virtual_property.inner'));
+        $container->setDefinition('serializer.name_converter.virtual_property', $definition);
     }
 }
