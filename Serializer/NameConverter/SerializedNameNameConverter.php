@@ -54,7 +54,7 @@ class SerializedNameNameConverter implements AdvancedNameConverterInterface
     public function normalize($propertyName, string $class = null, string $format = null, array $context = []): string
     {
         if ($class !== null) {
-            $virtualPropertyName = $this->getSerializedNameName($propertyName, $class, $context);
+            $virtualPropertyName = $this->getSerializedName($propertyName, $class, $context);
 
             if ($virtualPropertyName !== null) {
                 return $virtualPropertyName;
@@ -91,18 +91,19 @@ class SerializedNameNameConverter implements AdvancedNameConverterInterface
      *
      * @throws \ReflectionException
      */
-    protected function getSerializedNameName(string $propertyName, string $class, array $context): ?string
+    protected function getSerializedName(string $propertyName, string $class, array $context): ?string
     {
         $reflectionClass = new \ReflectionClass($class);
         $groups = $context['groups'] ?? [];
-        $methodName = static::startsWith($propertyName, ['is', 'has', 'can', 'does'])
-            ? $propertyName
-            : 'get' . ucfirst($propertyName);
+        $prefixes = ['is', 'has', 'get'];
 
-        $virtualProperty = $this->findSerializedName($reflectionClass, $methodName);
+        foreach ($prefixes as $prefix) {
+            $methodName = $prefix . ucfirst($propertyName);
+            $virtualProperty = $this->findSerializedName($reflectionClass, $methodName);
 
-        if ($virtualProperty !== null && static::hasCommonEntry((array) $groups, (array) $virtualProperty->groups)) {
-            return $virtualProperty->name;
+            if ($virtualProperty !== null && static::hasCommonEntry((array) $groups, (array) $virtualProperty->groups)) {
+                return $virtualProperty->name;
+            }
         }
 
         return null;

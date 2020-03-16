@@ -3,12 +3,14 @@
 namespace RichCongress\NormalizerBundle\DependencyInjection;
 
 use RichCongress\NormalizerBundle\DependencyInjection\CompilerPass\SerializerPass;
+use RichCongress\NormalizerBundle\Serializer\Handler\CircularReferenceHandler;
 use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
 use RichCongress\NormalizerBundle\Serializer\NameConverter\SerializedNameNameConverter;
 use RichCongress\NormalizerBundle\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -18,7 +20,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class RichCongressNormalizerExtension extends Extension
+class RichCongressNormalizerExtension extends Extension implements PrependExtensionInterface
 {
     public const SERIALIZER_SERVICE = 'rich_congress.serializer';
 
@@ -36,6 +38,7 @@ class RichCongressNormalizerExtension extends Extension
 
         self::autoconfigure($container);
         self::configureSerializer($container);
+        self::configureCircularReferenceHandler($container);
         self::configureSerializedName($container, $bundleConfig);
     }
 
@@ -51,17 +54,30 @@ class RichCongressNormalizerExtension extends Extension
     }
 
     /**
-     * @param ContainerBuilder $containerBuilder
+     * @param ContainerBuilder $container
      *
      * @return void
      */
-    protected static function configureSerializer(ContainerBuilder $containerBuilder): void
+    protected static function configureSerializer(ContainerBuilder $container): void
     {
         $definition = new Definition(Serializer::class);
         $definition->setAutowired(true);
         $definition->setDecoratedService('serializer');
         $definition->setArguments([[], [], []]);
-        $containerBuilder->setDefinition(static::SERIALIZER_SERVICE, $definition);
+        $container->setDefinition(static::SERIALIZER_SERVICE, $definition);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     *
+     * @return void
+     */
+    protected static function configureCircularReferenceHandler(ContainerBuilder $container): void
+    {
+        $definition = new Definition(CircularReferenceHandler::class);
+        $definition->setAutowired(true);
+        $definition->setPublic(true);
+        $container->setDefinition(CircularReferenceHandler::class, $definition);
     }
 
     /**
