@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class RichCongressNormalizerExtension extends Extension implements PrependExtensionInterface
+class RichCongressNormalizerExtension extends Extension
 {
     public const SERIALIZER_SERVICE = 'rich_congress.serializer';
 
