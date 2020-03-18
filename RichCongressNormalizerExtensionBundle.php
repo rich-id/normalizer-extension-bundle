@@ -1,19 +1,19 @@
 <?php
 
-namespace RichCongress\NormalizerBundle;
+namespace RichCongress\NormalizerExtensionBundle;
 
-use RichCongress\NormalizerBundle\DependencyInjection\CompilerPass\SerializerPass;
+use RichCongress\NormalizerExtensionBundle\DependencyInjection\CompilerPass\SerializerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class RichCongressNormalizerBundle
+ * Class RichCongressNormalizerExtensionBundle
  *
- * @package   RichCongress\NormalizerBundle
+ * @package   RichCongress\NormalizerExtensionBundle
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class RichCongressNormalizerBundle extends Bundle
+class RichCongressNormalizerExtensionBundle extends Bundle
 {
     /**
      * @param ContainerBuilder $container

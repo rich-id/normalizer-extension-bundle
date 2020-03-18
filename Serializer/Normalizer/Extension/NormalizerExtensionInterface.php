@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\NormalizerBundle\Serializer\Normalizer\Extension;
+namespace RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension;
 
 /**
  * Interface NormalizerExtensionInterface
  *
- * @package   RichCongress\NormalizerBundle\Serializer\Normalizer\Extension
+ * @package   RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */

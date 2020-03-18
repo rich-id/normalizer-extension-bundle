@@ -1,26 +1,23 @@
 <?php
 
-namespace RichCongress\NormalizerBundle\DependencyInjection;
+namespace RichCongress\NormalizerExtensionBundle\DependencyInjection;
 
-use RichCongress\NormalizerBundle\DependencyInjection\CompilerPass\SerializerPass;
-use RichCongress\NormalizerBundle\Serializer\Handler\CircularReferenceHandler;
-use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
-use RichCongress\NormalizerBundle\Serializer\NameConverter\SerializedNameNameConverter;
-use RichCongress\NormalizerBundle\Serializer\Serializer;
+use RichCongress\NormalizerExtensionBundle\DependencyInjection\CompilerPass\SerializerPass;
+use RichCongress\NormalizerExtensionBundle\Serializer\Handler\CircularReferenceHandler;
+use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
+use RichCongress\NormalizerExtensionBundle\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class RichCongressNormalizerExtension
+ * Class RichCongressNormalizerExtensionExtension
  *
- * @package   RichCongress\NormalizerBundle\DependencyInjection
+ * @package   RichCongress\NormalizerExtensionBundle\DependencyInjection
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class RichCongressNormalizerExtension extends Extension
+class RichCongressNormalizerExtensionExtension extends Extension
 {
     public const SERIALIZER_SERVICE = 'rich_congress.serializer';
 
@@ -34,12 +31,11 @@ class RichCongressNormalizerExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
-        $bundleConfig = $this->processConfiguration($configuration, $configs);
+        $this->processConfiguration($configuration, $configs);
 
         self::autoconfigure($container);
         self::configureSerializer($container);
         self::configureCircularReferenceHandler($container);
-        self::configureSerializedName($container, $bundleConfig);
     }
 
     /**
@@ -78,24 +74,5 @@ class RichCongressNormalizerExtension extends Extension
         $definition->setAutowired(true);
         $definition->setPublic(true);
         $container->setDefinition(CircularReferenceHandler::class, $definition);
-    }
-
-    /**
-     * @param ContainerBuilder $container
-     * @param array            $bundleConfig
-     *
-     * @return void
-     */
-    protected static function configureSerializedName(ContainerBuilder $container, array $bundleConfig): void
-    {
-        if (!$bundleConfig['virtual_property']) {
-            return;
-        }
-
-        $definition = new Definition(SerializedNameNameConverter::class);
-        $definition->setAutowired(true);
-        $definition->setDecoratedService('serializer.name_converter.metadata_aware');
-        $definition->setArgument('$innerNameConverter', new Reference('serializer.name_converter.serialized_name.inner'));
-        $container->setDefinition('serializer.name_converter.serialized_name', $definition);
     }
 }

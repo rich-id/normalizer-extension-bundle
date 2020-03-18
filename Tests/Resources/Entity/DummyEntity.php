@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Tests\RichCongress\NormalizerBundle\Resources\Entity;
+namespace Tests\RichCongress\NormalizerExtensionBundle\Resources\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use RichCongress\NormalizerBundle\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -28,17 +27,6 @@ class DummyEntity
      * @return boolean
      */
     public function isEntityBoolean(): bool
-    {
-        return true;
-    }
-
-    /**
-     * @SerializedName("doesItHasSerializedName")
-     * @Groups("dummy_entity_has_virtual_property")
-     *
-     * @return bool
-     */
-    public function hasSerializedName(): bool
     {
         return true;
     }

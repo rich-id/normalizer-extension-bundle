@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Tests\RichCongress\NormalizerBundle\Resources\Serializer\Normalizer\Extension;
+namespace Tests\RichCongress\NormalizerExtensionBundle\Resources\Serializer\Normalizer\Extension;
 
-use RichCongress\NormalizerBundle\Exception\AttributeNotFoundException;
-use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
-use Tests\RichCongress\NormalizerBundle\Resources\Entity\DummyEntity;
+use RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException;
+use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
+use Tests\RichCongress\NormalizerExtensionBundle\Resources\Entity\DummyEntity;
 
 /**
  * Class DummyNormalizerExtension
  *
- * @package   Tests\RichCongress\NormalizerBundle\Resources\Serializer\Normalizer\Extension
+ * @package   Tests\RichCongress\NormalizerExtensionBundle\Resources\Serializer\Normalizer\Extension
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */

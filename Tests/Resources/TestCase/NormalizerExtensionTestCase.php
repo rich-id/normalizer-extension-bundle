@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Tests\RichCongress\NormalizerBundle\Resources\TestCase;
+namespace Tests\RichCongress\NormalizerExtensionBundle\Resources\TestCase;
 
 use RichCongress\Bundle\UnitBundle\TestCase\TestCase;
-use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
-use RichCongress\NormalizerBundle\Serializer\Serializer;
+use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
+use RichCongress\NormalizerExtensionBundle\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;

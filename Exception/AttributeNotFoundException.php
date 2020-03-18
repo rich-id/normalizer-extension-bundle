@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\NormalizerBundle\Exception;
+namespace RichCongress\NormalizerExtensionBundle\Exception;
 
 /**
  * Class AttributeNotFoundException
  *
- * @package   RichCongress\NormalizerBundle\Exception
+ * @package   RichCongress\NormalizerExtensionBundle\Exception
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */

@@ -1,25 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace Tests\RichCongress\NormalizerBundle\Serializer\Normalizer;
+namespace Tests\RichCongress\NormalizerExtensionBundle\Serializer\Normalizer;
 
 use RichCongress\Bundle\UnitBundle\TestConfiguration\Annotation\WithContainer;
-use RichCongress\NormalizerBundle\Exception\AttributeNotFoundException;
+use RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Tests\RichCongress\NormalizerBundle\Resources\Entity\DummyEntity;
-use Tests\RichCongress\NormalizerBundle\Resources\Serializer\Normalizer\Extension\DummyNormalizerExtension;
-use Tests\RichCongress\NormalizerBundle\Resources\TestCase\NormalizerExtensionTestCase;
+use Tests\RichCongress\NormalizerExtensionBundle\Resources\Entity\DummyEntity;
+use Tests\RichCongress\NormalizerExtensionBundle\Resources\Serializer\Normalizer\Extension\DummyNormalizerExtension;
+use Tests\RichCongress\NormalizerExtensionBundle\Resources\TestCase\NormalizerExtensionTestCase;
 
 /**
  * Class AbstractObjectNormalizerExtensionExtensionTest
  *
- * @package   Tests\RichCongress\NormalizerBundle\Serializer\Normalizer
+ * @package   Tests\RichCongress\NormalizerExtensionBundle\Serializer\Normalizer
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  *
- * @covers \RichCongress\NormalizerBundle\Serializer\Serializer
- * @covers \RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension
- * @covers \RichCongress\NormalizerBundle\Exception\AttributeNotFoundException
+ * @covers \RichCongress\NormalizerExtensionBundle\Serializer\Serializer
+ * @covers \RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension
+ * @covers \RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException
  * @WithContainer
  */
 class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtensionTestCase

@@ -10,7 +10,7 @@
          forceCoversAnnotation="true"
 >
     <php>
-        <env name="KERNEL_CLASS" value="Tests\RichCongress\NormalizerBundle\Resources\TestKernel" />
+        <env name="KERNEL_CLASS" value="Tests\RichCongress\NormalizerExtensionBundle\Resources\TestKernel" />
         <env name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
 
@@ -32,7 +32,7 @@
 
             <exclude>
                 <file>phpunit-filter.php</file>
-                <file>RichCongressNormalizerBundle.php</file>
+                <file>RichCongressNormalizerExtensionBundle.php</file>
                 <directory>coverage</directory>
                 <directory>DependencyInjection</directory>
                 <directory>Tests</directory>

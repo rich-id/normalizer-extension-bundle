@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     application:
-        container_name: normalizer_bundle_app
+        container_name: normalizer_extension_bundle_app
         image: richcongress/php:7.3
         volumes:
             - .:/app:rw,cached

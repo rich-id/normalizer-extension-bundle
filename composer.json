@@ -1,8 +1,8 @@
 {
-    "name": "richcongress/normalizer-bundle",
+    "name": "richcongress/normalizer-extension-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
-    "description": "This bundle provides some handy functions and configuration around the Symfony Serializer.",
+    "description": "This bundle adds another process after normalization to inject or edit some data.",
     "authors": [
         {
             "name": "RichCongress",
@@ -25,15 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RichCongress\\NormalizerBundle\\": ""
-        },
-        "files": [
-            "./Serializer/Annotation/SerializedName.php"
-        ]
+            "RichCongress\\NormalizerExtensionBundle\\": ""
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\RichCongress\\NormalizerBundle\\": "Tests/"
+            "Tests\\RichCongress\\NormalizerExtensionBundle\\": "Tests/"
         }
     },
     "scripts": {

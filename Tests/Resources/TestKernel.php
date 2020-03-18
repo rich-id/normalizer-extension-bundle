@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Tests\RichCongress\NormalizerBundle\Resources;
+namespace Tests\RichCongress\NormalizerExtensionBundle\Resources;
 
 use RichCongress\Bundle\UnitBundle\Kernel\DefaultTestKernel;
-use RichCongress\NormalizerBundle\RichCongressNormalizerBundle;
+use RichCongress\NormalizerExtensionBundle\RichCongressNormalizerExtensionBundle;
 
 /**
  * Class TestKernel
  *
- * @package   Tests\RichCongress\NormalizerBundle\Resources
+ * @package   Tests\RichCongress\NormalizerExtensionBundle\Resources
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
@@ -20,7 +20,7 @@ class TestKernel extends DefaultTestKernel
     public function registerBundles(): array
     {
         $bundles = parent::registerBundles();
-        $bundles[] = new RichCongressNormalizerBundle();
+        $bundles[] = new RichCongressNormalizerExtensionBundle();
 
         return $bundles;
     }

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\NormalizerBundle\Tests\Resources\Serializer\NameConverter;
+namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Serializer\NameConverter;
 
 use Symfony\Component\Serializer\NameConverter\AdvancedNameConverterInterface;
 
 /**
  * Class DummyNameConverter
  *
- * @package   RichCongress\NormalizerBundle\Tests\Resources\Serializer\NameConverter
+ * @package   RichCongress\NormalizerExtensionBundle\Tests\Resources\Serializer\NameConverter
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */

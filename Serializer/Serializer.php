@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\NormalizerBundle\Serializer;
+namespace RichCongress\NormalizerExtensionBundle\Serializer;
 
-use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
+use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 /**
  * Class Serializer
  *
- * @package   RichCongress\NormalizerBundle\Serializer
+ * @package   RichCongress\NormalizerExtensionBundle\Serializer
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */

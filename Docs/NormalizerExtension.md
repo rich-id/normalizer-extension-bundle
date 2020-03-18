@@ -3,28 +3,6 @@
 This bundle brings the Normalizer Extension. It is a component that behaves like a regular [Normalizer](https://symfony.com/doc/current/serializer/normalizers.html) but acts after the normalization process. The goal is to provide a way to add data to the normalization process without impacting the default behaviour.
 
 
-## SerializedNameNormalizerExtension
-
-This extension provides support for the `@SerializedName` annotation. You must have the appropriated [configuration](Configuration.md) to use it. This annotation has to be set on a method of an objet like following.
-
-```php
-use RichCongress\NormalizerBundle\Serializer\Annotation\SerializedName;
-
-class DummyEntity
-{
-    /**
-     * @SerializedName("data", groups={"dummy_entity_wonderful_data"})
-     * 
-     * @return array
-     */
-    public function getWonderfulData(): array
-    {
-        return ['something'];
-    }
-}
-```
-
-
 ## AbstractObjectNormalizerExtension
 
 This extension lets you add whatever data you want to any object. It is designed to normalize only one object class and can support multiple serialization groups.
@@ -34,7 +12,7 @@ The method linked to the serialization group is based on the name of the propert
 Also note that in the following example, there is no matching method for the serialization group `dummy_entity_database_id`. In this case, the extension will try to find a `getId()` method within the object itself. If it fails, it will throw an error.
 
 ```php
-use RichCongress\NormalizerBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
+use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
 
 class DummyEntityNormalizerExtension extends AbstractObjectNormalizerExtension
 {

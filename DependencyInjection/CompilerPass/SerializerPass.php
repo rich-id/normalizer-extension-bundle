@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\NormalizerBundle\DependencyInjection\CompilerPass;
+namespace RichCongress\NormalizerExtensionBundle\DependencyInjection\CompilerPass;
 
-use RichCongress\NormalizerBundle\DependencyInjection\RichCongressNormalizerExtension;
+use RichCongress\NormalizerExtensionBundle\DependencyInjection\RichCongressNormalizerExtensionExtension;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -33,7 +33,7 @@ class SerializerPass extends \Symfony\Component\Serializer\DependencyInjection\S
     protected $extensionTag;
 
     public function __construct(
-        string $serializerService = RichCongressNormalizerExtension::SERIALIZER_SERVICE,
+        string $serializerService = RichCongressNormalizerExtensionExtension::SERIALIZER_SERVICE,
         string $normalizerTag = 'serializer.normalizer',
         string $encoderTag = 'serializer.encoder',
         string $extensionTag = self::NORMALIZER_EXTENSION_TAG

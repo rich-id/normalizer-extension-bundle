@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\NormalizerBundle\Serializer\Handler;
+namespace RichCongress\NormalizerExtensionBundle\Serializer\Handler;
 
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * Class CircularReferenceHandler
  *
- * @package   RichCongress\NormalizerBundle\Serializer\Handler
+ * @package   RichCongress\NormalizerExtensionBundle\Serializer\Handler
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
