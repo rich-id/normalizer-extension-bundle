@@ -3,6 +3,7 @@
 namespace RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension;
 
 use RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException;
+use RichCongress\NormalizerExtensionBundle\Exception\SkipSerializationException;
 
 /**
  * Class AbstractObjectNormalizerExtension
@@ -71,12 +72,12 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
     {
         $this->format = $format;
         $this->context = $context;
-        $groups = ((array) $context['groups']) ?? [];
-        $supportedGroups = static::getSupportedGroups();
+        $groups = $context['groups'] ?? [];
+        $groups = (array) $groups;
+        $serializationGroups = static::getSerializationGroups();
 
-        foreach ($supportedGroups as $propertyGroup => $propertyNames) {
-            $this->currentPropertyGroup = static::$contextPrefix . $propertyGroup;
-            $propertyNames = (array) $propertyNames;
+        foreach ($serializationGroups as $propertyGroup => $propertyNames) {
+            $this->currentPropertyGroup = $propertyGroup;
 
             if (!in_array($this->currentPropertyGroup, $groups, true)) {
                 continue;
@@ -85,15 +86,39 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
             foreach ($propertyNames as $propertyName) {
                 $this->currentPropertyName = $propertyName;
 
-                $callbackName = static::startsWith($propertyName, ['is', 'has', 'can', 'does'])
-                    ? $propertyName
-                    : 'get' . ucfirst($propertyName);
-
-                $normalizedData[$propertyName] = $this->getValue($callbackName, $object);
+                try {
+                    $normalizedData[$propertyName] = $this->getValue($propertyName, $object);
+                } catch (SkipSerializationException $e) {
+                    continue;
+                }
             }
         }
 
         return $normalizedData;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSerializationGroups(): array
+    {
+        $groups = static::getSupportedGroups();
+
+        $keys = array_map(
+            static function (string $key) {
+                return static::$contextPrefix . $key;
+            },
+            array_keys($groups)
+        );
+
+        $values = array_map(
+            static function (string $value) {
+                return (array) $value;
+            },
+            array_values($groups)
+        );
+
+        return array_combine($keys, $values);
     }
 
     /**
@@ -110,43 +135,60 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
     }
 
     /**
-     * @param string $callbackName
+     * @param string $propertyName
      * @param mixed  $object
      *
-     * @return callable
+     * @return mixed
+     *
+     * @throws \ReflectionException
+     * @throws SkipSerializationException
+     */
+    protected function getValue(string $propertyName, $object)
+    {
+        $callbackMethod = static::getCallbackMethod($propertyName);
+
+        if ($callbackMethod === null) {
+            $classes = [static::class, \get_class($object)];
+
+            throw new \LogicException(
+                sprintf(
+                    'The method to get the property \'%s\' not found from the following classes: %s',
+                    $propertyName,
+                    implode(', ', $classes)
+                )
+            );
+        }
+
+        return $callbackMethod->getDeclaringClass()->getName() === static::class
+            ? ([$this, $callbackMethod->getName()])($object)
+            : ([$object, $callbackMethod->getName()])();
+    }
+
+    /**
+     * @param string $propertyName
+     *
+     * @return \ReflectionMethod|null
      *
      * @throws \ReflectionException
      */
-    protected function getValue(string $callbackName, $object)
+    public static function getCallbackMethod(string $propertyName): ?\ReflectionMethod
     {
-        $normalizerReflectionClass = new \ReflectionClass($this);
+        $normalizerReflectionClass = new \ReflectionClass(static::class);
+        $callbackName = static::startsWith($propertyName, ['is', 'has', 'can', 'does'])
+            ? $propertyName
+            : 'get' . ucfirst($propertyName);
 
         if ($normalizerReflectionClass->hasMethod($callbackName)) {
-            $callback = [$this, $callbackName];
-
-            return $callback($object);
+            return $normalizerReflectionClass->getMethod($callbackName);
         }
 
-        $objectReflectionClass = new \ReflectionClass($object);
-
-        if ($objectReflectionClass->hasMethod($callbackName)) {
-            $callback = [$object, $callbackName];
-
-            return $callback();
-        }
-
-        $classes = [
-            static::class,
-            \get_class($object)
-        ];
-
-        throw new \LogicException(
-            sprintf(
-                'The method \'%s\' not found from the following classes: %s',
-                $callbackName,
-                implode(', ', $classes)
-            )
+        $objectReflectionClass = new \ReflectionClass(
+            $normalizerReflectionClass->getStaticPropertyValue('objectClass')
         );
+
+        return $objectReflectionClass->hasMethod($callbackName)
+            ? $objectReflectionClass->getMethod($callbackName)
+            : null;
     }
 
     /**

@@ -15,13 +15,15 @@
         "symfony/config": "^3.0 || ^4.0",
         "symfony/dependency-injection": "^3.0 || ^4.0",
         "symfony/http-kernel": "^3.0 || ^4.0",
-        "symfony/serializer": "^3.0 || ^4.0"
+        "symfony/serializer": "^3.0 || ^4.0",
+        "richcongress/bundle-toolbox": "^1.0"
     },
     "require-dev": {
         "php-coveralls/php-coveralls": "^2.1",
         "richcongress/unit-bundle": "^1.0",
         "symfony/property-access": "^3.0 || ^4.0",
-        "symfony/yaml": "^3.0 || ^4.0"
+        "symfony/yaml": "^3.0 || ^4.0",
+        "nelmio/api-doc-bundle": "^3.0"
     },
     "autoload": {
         "psr-4": {

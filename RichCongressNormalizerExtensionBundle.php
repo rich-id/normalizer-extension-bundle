@@ -2,9 +2,8 @@
 
 namespace RichCongress\NormalizerExtensionBundle;
 
+use RichCongress\BundleToolbox\Configuration\AbstractBundle;
 use RichCongress\NormalizerExtensionBundle\DependencyInjection\CompilerPass\SerializerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class RichCongressNormalizerExtensionBundle
@@ -13,15 +12,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class RichCongressNormalizerExtensionBundle extends Bundle
+class RichCongressNormalizerExtensionBundle extends AbstractBundle
 {
-    /**
-     * @param ContainerBuilder $container
-     *
-     * @return void
-     */
-    public function build(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new SerializerPass());
-    }
+    public const COMPILER_PASSES = [SerializerPass::class];
 }

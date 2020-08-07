@@ -37,7 +37,7 @@ class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtension
     public function testNormalizeDummyEntitySuccessfully(): void
     {
         $entity = new DummyEntity();
-        $entity->booleanValue = true;
+        $entity->booleanValue = false;
 
         $data = $this->serializer->normalize(
             $entity,
@@ -61,11 +61,40 @@ class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtension
         self::assertArrayHasKey('normalizerAttributeWithDefault', $data);
         self::assertArrayHasKey('isEntityBoolean', $data);
 
-        self::assertTrue($data['booleanValue']);
+        self::assertFalse($data['booleanValue']);
         self::assertEquals('content', $data['normalizerField']);
         self::assertEquals(['yes'], $data['normalizerAttribute']);
         self::assertEquals('fallback', $data['normalizerAttributeWithDefault']);
         self::assertTrue($data['isEntityBoolean']);
+    }
+
+    /**
+     * @return void
+     *
+     * @throws ExceptionInterface
+     */
+    public function testNormalizeDummyEntityWithSkip(): void
+    {
+        $entity = new DummyEntity();
+        $entity->booleanValue = true;
+
+        $data = $this->serializer->normalize(
+            $entity,
+            'json',
+            [
+                'attribute'                    => ['yes'],
+                AbstractNormalizer::ATTRIBUTES => ['booleanValue'],
+                AbstractNormalizer::GROUPS     => [
+                    'dummy_entity_boolean_value',
+                    'dummy_entity_normalizer_field',
+                ],
+            ]
+        );
+
+        self::assertArrayHasKey('booleanValue', $data);
+        self::assertArrayNotHasKey('normalizerField', $data);
+
+        self::assertTrue($data['booleanValue']);
     }
 
     /**
