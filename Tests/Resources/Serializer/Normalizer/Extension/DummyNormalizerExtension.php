@@ -3,6 +3,7 @@
 namespace Tests\RichCongress\NormalizerExtensionBundle\Resources\Serializer\Normalizer\Extension;
 
 use RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException;
+use RichCongress\NormalizerExtensionBundle\Exception\SkipSerializationException;
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
 use Tests\RichCongress\NormalizerExtensionBundle\Resources\Entity\DummyEntity;
 
@@ -24,12 +25,12 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
     public static function getSupportedGroups(): array
     {
         return [
-            'normalizer_field' => 'normalizerField',
-            'normalizer_attribute' => 'normalizerAttribute',
-            'normalizer_bad_attribute' => 'normalizerBadAttribute',
+            'normalizer_field'                  => 'normalizerField',
+            'normalizer_attribute'              => 'normalizerAttribute',
+            'normalizer_bad_attribute'          => 'normalizerBadAttribute',
             'normalizer_attribute_with_default' => 'normalizerAttributeWithDefault',
-            'entity_boolean'   => 'isEntityBoolean',
-            'no_functions' => 'noFunction',
+            'entity_boolean'                    => 'isEntityBoolean',
+            'no_functions'                      => 'noFunction',
         ];
     }
 
@@ -37,9 +38,15 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
      * @param DummyEntity $entity
      *
      * @return string
+     *
+     * @throws SkipSerializationException
      */
     public function getNormalizerField(DummyEntity $entity): string
     {
+        if ($entity->booleanValue === true) {
+            throw new SkipSerializationException('Skipped');
+        }
+
         return 'content';
     }
 

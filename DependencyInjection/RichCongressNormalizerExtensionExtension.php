@@ -2,13 +2,13 @@
 
 namespace RichCongress\NormalizerExtensionBundle\DependencyInjection;
 
+use RichCongress\BundleToolbox\Configuration\AbstractExtension;
 use RichCongress\NormalizerExtensionBundle\DependencyInjection\CompilerPass\SerializerPass;
 use RichCongress\NormalizerExtensionBundle\Serializer\Handler\CircularReferenceHandler;
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
 use RichCongress\NormalizerExtensionBundle\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 
 /**
  * Class RichCongressNormalizerExtensionExtension
@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class RichCongressNormalizerExtensionExtension extends Extension
+class RichCongressNormalizerExtensionExtension extends AbstractExtension
 {
     public const SERIALIZER_SERVICE = 'rich_congress.serializer';
 
@@ -30,9 +30,6 @@ class RichCongressNormalizerExtensionExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $configuration = new Configuration();
-        $this->processConfiguration($configuration, $configs);
-
         self::autoconfigure($container);
         self::configureSerializer($container);
         self::configureCircularReferenceHandler($container);
