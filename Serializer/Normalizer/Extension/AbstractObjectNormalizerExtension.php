@@ -112,7 +112,7 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
         );
 
         $values = array_map(
-            static function (string $value) {
+            static function ($value) {
                 return (array) $value;
             },
             array_values($groups)
