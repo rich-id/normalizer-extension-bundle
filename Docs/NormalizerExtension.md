@@ -41,7 +41,7 @@ class DummyEntityNormalizerExtension extends AbstractObjectNormalizerExtension
         ];
     }
     
-    public function isBeautifulEnought(): bool
+    public function isBeautifulEnough(): bool
     {
         return true;
     }   
@@ -51,6 +51,21 @@ class DummyEntityNormalizerExtension extends AbstractObjectNormalizerExtension
         return 'DummyEntity is its name';
     }   
 }
+```
+
+### Stop the normalization
+
+To stop the normalization and then, do not add an entry to the normalized object, you may use the exception `SkipSerializationException`.
+
+```php
+public function isBeautifulEnough(): bool
+{
+    ...
+    if ($notConnected) {
+        throw new SkipSerializationException('User not connected');
+    }
+    ...
+}   
 ```
 
 ## Write your own Normalizer Extension
