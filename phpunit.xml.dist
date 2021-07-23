@@ -13,28 +13,24 @@
         <env name="APP_ENV" value="test" force="true"/>
         <env name="APP_SECRET" value="AppSecret"/>
         <env name="KERNEL_DIR" value="Tests/Resources/Kernel" />
-        <env name="KERNEL_CLASS" value="Tests\RichCongress\NormalizerExtensionBundle\Resources\Kernel\TestKernel"/>
+        <env name="KERNEL_CLASS" value="RichCongress\NormalizerExtensionBundle\Tests\Resources\Kernel\TestKernel"/>
         <env name="SYMFONY_PHPUNIT_VERSION" value="9.5"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     </php>
 
     <testsuites>
         <testsuite name="WorkerBundle test suite">
-            <directory>Tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="true">
         <include>
-            <directory suffix=".php">.</directory>
+            <directory suffix=".php">src</directory>
         </include>
         <exclude>
             <file>RichCongressNormalizerExtensionBundle.php</file>
-            <directory>coverage</directory>
             <directory>DependencyInjection</directory>
-            <directory>Tests</directory>
-            <directory>var</directory>
-            <directory>vendor</directory>
         </exclude>
     </coverage>
 
