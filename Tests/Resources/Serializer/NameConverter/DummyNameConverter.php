@@ -16,7 +16,7 @@ class DummyNameConverter implements AdvancedNameConverterInterface
     /**
      * @inheritDoc
      */
-    public function normalize($propertyName, string $class = null, string $format = null, array $context = [])
+    public function normalize(string $propertyName, string $class = null, string $format = null, array $context = [])
     {
         return $propertyName . '_' . ($class ?? 'empty');
     }
@@ -24,7 +24,7 @@ class DummyNameConverter implements AdvancedNameConverterInterface
     /**
      * @inheritDoc
      */
-    public function denormalize($propertyName, string $class = null, string $format = null, array $context = [])
+    public function denormalize(string $propertyName, string $class = null, string $format = null, array $context = [])
     {
         return $propertyName . '_' . ($class ?? 'empty');
     }

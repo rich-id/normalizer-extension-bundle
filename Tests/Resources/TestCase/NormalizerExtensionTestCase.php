@@ -2,9 +2,10 @@
 
 namespace Tests\RichCongress\NormalizerExtensionBundle\Resources\TestCase;
 
-use RichCongress\Bundle\UnitBundle\TestCase\TestCase;
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
 use RichCongress\NormalizerExtensionBundle\Serializer\Serializer;
+use RichCongress\TestSuite\TestCase\TestCase;
+use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -33,9 +34,9 @@ class NormalizerExtensionTestCase extends TestCase
      */
     public function setUp(): void
     {
-        parent::setUp();
+        $this->setUpTestCase();
 
-        if (self::doesTestNeedsContainer()) {
+        if (WebTestCase::isEnabled()) {
             $this->serializer = $this->getService('serializer');
 
             return;
@@ -43,6 +44,8 @@ class NormalizerExtensionTestCase extends TestCase
 
         // In this conditions, the ObjectNormalizer will serialize ALL properties whatever the serialization groups
         $this->serializer = new Serializer([new ObjectNormalizer()], [], [$this->normalizerExtension]);
+
+        $this->beforeTest();
     }
 
     /**

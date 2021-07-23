@@ -2,10 +2,10 @@
 
 namespace RichCongress\NormalizerExtensionBundle\Tests\Handler;
 
-use RichCongress\Bundle\UnitBundle\TestCase\TestCase;
 use RichCongress\NormalizerExtensionBundle\Serializer\Handler\CircularReferenceHandler;
 use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntityWithId;
 use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntityWithKeyname;
+use RichCongress\TestSuite\TestCase\TestCase;
 use Tests\RichCongress\NormalizerExtensionBundle\Resources\Entity\DummyEntity;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace Tests\RichCongress\NormalizerExtensionBundle\Serializer\Normalizer;
 
-use RichCongress\Bundle\UnitBundle\TestConfiguration\Annotation\WithContainer;
 use RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException;
+use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Tests\RichCongress\NormalizerExtensionBundle\Resources\Entity\DummyEntity;
@@ -20,7 +20,8 @@ use Tests\RichCongress\NormalizerExtensionBundle\Resources\TestCase\NormalizerEx
  * @covers \RichCongress\NormalizerExtensionBundle\Serializer\Serializer
  * @covers \RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension
  * @covers \RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException
- * @WithContainer
+ *
+ * @TestConfig("container")
  */
 class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtensionTestCase
 {
