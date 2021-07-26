@@ -22,7 +22,7 @@ class RichCongressNormalizerExtensionExtension extends AbstractExtension
 {
     public const SERIALIZER_SERVICE = 'rich_congress.serializer';
 
-    /** @throws \Exception */
+    /** @param array<string, mixed> $configs */
     public function load(array $configs, ContainerBuilder $container): void
     {
         self::autoconfigure($container);

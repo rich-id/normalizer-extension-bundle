@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RichCongress\NormalizerExtensionBundle\Serializer;
 
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 /**
  * Class Serializer.
@@ -15,10 +14,14 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
  */
 class Serializer extends \Symfony\Component\Serializer\Serializer
 {
-    /** @var array|NormalizerExtensionInterface[] */
+    /** @var NormalizerExtensionInterface[] */
     protected $extensions = [];
 
-    /** Serializer constructor. */
+    /**
+     * {@inheritdoc}
+     *
+     * @param NormalizerExtensionInterface[] $extensions
+     */
     public function __construct(array $normalizers = [], array $encoders = [], array $extensions = [])
     {
         parent::__construct($normalizers, $encoders);
@@ -27,14 +30,13 @@ class Serializer extends \Symfony\Component\Serializer\Serializer
     }
 
     /**
-     * @param mixed $data
-     * @param null  $format
+     * {@inheritdoc}
      *
-     * @return array|\ArrayObject|bool|float|int|mixed|string|null
+     * @param array<string, mixed> $context
      *
-     * @throws ExceptionInterface
+     * @return array<string, mixed>|string|int|float|bool|\ArrayObject<string, mixed>|null
      */
-    public function normalize($data, $format = null, array $context = [])
+    public function normalize($data, ?string $format = null, array $context = [])
     {
         $normalizedData = parent::normalize($data, $format, $context);
 

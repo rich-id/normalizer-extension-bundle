@@ -14,13 +14,21 @@ use Symfony\Component\Serializer\NameConverter\AdvancedNameConverterInterface;
  */
 class DummyNameConverter implements AdvancedNameConverterInterface
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed> $context
+     */
     public function normalize(string $propertyName, string $class = null, string $format = null, array $context = [])
     {
         return $propertyName . '_' . ($class ?? 'empty');
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed> $context
+     */
     public function denormalize(string $propertyName, string $class = null, string $format = null, array $context = [])
     {
         return $propertyName . '_' . ($class ?? 'empty');

@@ -15,10 +15,9 @@ class AttributeNotFoundException extends \Exception
     /** @var string */
     protected $propertyId;
 
-    /** @var string */
+    /** @var string|null */
     protected $group;
 
-    /** NotFoundInBagException constructor. */
     public function __construct(string $propertyId, ?string $group = null)
     {
         $this->propertyId = $propertyId;

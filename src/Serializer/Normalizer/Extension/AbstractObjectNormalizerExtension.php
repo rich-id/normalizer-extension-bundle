@@ -30,7 +30,7 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
      */
     protected static $contextPrefix = '';
 
-    /** @var string */
+    /** @var string|null */
     protected $format;
 
     /** @var array<string, mixed> */
@@ -48,14 +48,16 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
      *
      * For each property name, a function "getPropertyName(object)" must be created
      * If the property name begins by "is" or "has", for instance "isBeautiful", the function "isBeautiful(object)" must be created instead
+     *
+     * @return string[]
      */
     abstract public static function getSupportedGroups(): array;
 
     /**
-     * @param mixed                                         $object
-     * @param array|string|int|float|bool|\ArrayObject|null $normalizedData
+     * @param mixed                                                                       $object
+     * @param array<string, mixed>|string|int|float|bool|\ArrayObject<string, mixed>|null $normalizedData
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array<string, mixed>|string|int|float|bool|\ArrayObject<string, mixed>|null
      *
      * @throws \ReflectionException
      */
@@ -74,7 +76,7 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
                 continue;
             }
 
-            foreach ($propertyNames as $propertyName) {
+            foreach ((array) $propertyNames as $propertyName) {
                 $this->currentPropertyName = $propertyName;
 
                 try {
@@ -88,7 +90,7 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
         return $normalizedData;
     }
 
-    /** @return string[] */
+    /** @return array<string, string[]> */
     public static function getSerializationGroups(): array
     {
         $groups = static::getSupportedGroups();
@@ -111,8 +113,8 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
     }
 
     /**
-     * @param mixed                                         $object
-     * @param array|string|int|float|bool|\ArrayObject|null $normalizedData
+     * @param mixed                                                                       $object
+     * @param array<string, mixed>|string|int|float|bool|\ArrayObject<string, mixed>|null $normalizedData
      */
     public function supportsExtension($object, $normalizedData, ?string $format = null, array $context = []): bool
     {
@@ -125,7 +127,6 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
      * @return mixed
      *
      * @throws \ReflectionException
-     * @throws SkipSerializationException
      */
     protected function getValue(string $propertyName, $object)
     {
@@ -143,9 +144,13 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
             );
         }
 
-        return $callbackMethod->getDeclaringClass()->getName() === static::class
-            ? ([$this, $callbackMethod->getName()])($object)
-            : ([$object, $callbackMethod->getName()])();
+        $isInEntityMethod = $callbackMethod->getDeclaringClass()->getName() !== static::class;
+        $callbackMethodName = $callbackMethod->getName();
+
+        /** @var callable $callback */
+        $callback = [$isInEntityMethod ? $object : $this, $callbackMethodName];
+
+        return $isInEntityMethod ? $callback() : $callback($object);
     }
 
     /** @throws \ReflectionException */
@@ -199,7 +204,7 @@ abstract class AbstractObjectNormalizerExtension implements NormalizerExtensionI
     /**
      * Determine if a given string starts with a given substring.
      *
-     * @param string|array $needles
+     * @param string|string[] $needles
      */
     private static function startsWith(string $haystack, $needles): bool
     {

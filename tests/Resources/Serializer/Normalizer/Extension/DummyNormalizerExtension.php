@@ -20,6 +20,7 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
     public static $objectClass = DummyEntity::class;
     public static $contextPrefix = 'dummy_entity_';
 
+    /** @return array<string, string> */
     public static function getSupportedGroups(): array
     {
         return [
@@ -42,13 +43,21 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
         return 'content';
     }
 
-    /** @throws AttributeNotFoundException */
+    /**
+     * @return array<string, mixed>
+     *
+     * @throws AttributeNotFoundException
+     */
     public function getNormalizerAttribute(DummyEntity $entity): array
     {
         return $this->getAttribute('attribute');
     }
 
-    /** @throws AttributeNotFoundException */
+    /**
+     * @return array<string, mixed>
+     *
+     * @throws AttributeNotFoundException
+     */
     public function getNormalizerBadAttribute(DummyEntity $entity): array
     {
         return $this->getAttribute('bad_attribute');

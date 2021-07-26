@@ -9,8 +9,8 @@ use RichCongress\NormalizerExtensionBundle\Serializer\Serializer;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class NormalizerExtensionTestCase.
@@ -23,33 +23,39 @@ class NormalizerExtensionTestCase extends TestCase
     /** @var NormalizerExtensionInterface */
     protected $normalizerExtension;
 
-    /** @var SerializerInterface */
-    protected $serializer;
+    /** @var NormalizerInterface */
+    protected $normalizer;
 
     public function setUp(): void
     {
         $this->setUpTestCase();
 
         if (WebTestCase::isEnabled()) {
-            $this->serializer = $this->getService('serializer');
+            /** @var NormalizerInterface $serializer */
+            $serializer = $this->getService('serializer');
+            $this->normalizer = $serializer;
 
             return;
         }
 
         // In this conditions, the ObjectNormalizer will serialize ALL properties whatever the serialization groups
-        $this->serializer = new Serializer([new ObjectNormalizer()], [], [$this->normalizerExtension]);
+        $this->normalizer = new Serializer([new ObjectNormalizer()], [], [$this->normalizerExtension]);
 
         $this->beforeTest();
     }
 
     /**
-     * @param mixed        $object
-     * @param array|string $groups
+     * @param mixed           $object
+     * @param string[]|string $groups
+     *
+     * @return array<string, mixed>|null
      */
     public function normalize($object, $groups = []): ?array
     {
-        return $this->serializer->normalize($object, null, [
-            AbstractNormalizer::GROUPS => $groups,
+        $output = $this->normalizer->normalize($object, null, [
+            AbstractNormalizer::GROUPS => (array) $groups,
         ]);
+
+        return \is_array($output) ? $output : null;
     }
 }

@@ -35,7 +35,8 @@ class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtension
         $entity = new DummyEntity();
         $entity->booleanValue = false;
 
-        $data = $this->serializer->normalize(
+        /** @var array<string, mixed> $data */
+        $data = $this->normalizer->normalize(
             $entity,
             'json',
             [
@@ -70,7 +71,8 @@ class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtension
         $entity = new DummyEntity();
         $entity->booleanValue = true;
 
-        $data = $this->serializer->normalize(
+        /** @var array<string, mixed> $data */
+        $data = $this->normalizer->normalize(
             $entity,
             'json',
             [
@@ -96,7 +98,7 @@ class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtension
 
         $this->expectException(AttributeNotFoundException::class);
 
-        $this->serializer->normalize(
+        $this->normalizer->normalize(
             $entity,
             'json',
             [
@@ -115,7 +117,7 @@ class AbstractObjectNormalizerExtensionExtensionTest extends NormalizerExtension
 
         $this->expectException(\LogicException::class);
 
-        $this->serializer->normalize(
+        $this->normalizer->normalize(
             $entity,
             'json',
             [

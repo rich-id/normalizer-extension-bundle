@@ -15,7 +15,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 class CircularReferenceHandler
 {
     /**
-     * @param mixed $object
+     * @param mixed                $object
+     * @param array<string, mixed> $context
      *
      * @return mixed
      */
