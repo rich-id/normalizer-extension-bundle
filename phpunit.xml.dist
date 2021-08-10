@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.4/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
          failOnRisky="true"
@@ -10,35 +9,36 @@
          forceCoversAnnotation="true"
 >
     <php>
-        <env name="KERNEL_CLASS" value="Tests\RichCongress\NormalizerExtensionBundle\Resources\TestKernel" />
-        <env name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
-
-        <!-- ###+ symfony/framework-bundle ### -->
-        <env name="APP_ENV" value="test"/>
+        <ini name="error_reporting" value="-1"/>
+        <env name="APP_ENV" value="test" force="true"/>
         <env name="APP_SECRET" value="AppSecret"/>
-        <!-- ###- symfony/framework-bundle ### -->
+        <env name="KERNEL_DIR" value="Tests/Resources/Kernel" />
+        <env name="KERNEL_CLASS" value="RichCongress\NormalizerExtensionBundle\Tests\Resources\Kernel\TestKernel"/>
+        <env name="SYMFONY_PHPUNIT_VERSION" value="9.5"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     </php>
 
     <testsuites>
         <testsuite name="WorkerBundle test suite">
-            <directory suffix="Test.php">Tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">.</directory>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <file>RichCongressNormalizerExtensionBundle.php</file>
+            <directory>DependencyInjection</directory>
+        </exclude>
+    </coverage>
 
-            <exclude>
-                <file>phpunit-filter.php</file>
-                <file>RichCongressNormalizerExtensionBundle.php</file>
-                <directory>coverage</directory>
-                <directory>DependencyInjection</directory>
-                <directory>Tests</directory>
-                <directory>var</directory>
-                <directory>vendor</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+    <extensions>
+        <extension class="RichCongress\TestFramework\PHPUnitExtension">
+            <arguments>
+                <string>RichCongress\WebTestBundle\TestHook</string>
+            </arguments>
+        </extension>
+    </extensions>
 </phpunit>

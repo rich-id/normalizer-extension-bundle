@@ -1,9 +1,6 @@
 # Managed by Composer
 /vendor
 
-# PHPUnit
-/.phpunit
-
 # Auto-saved files
 *~
 
@@ -20,6 +17,10 @@
 /.phpunit.result.cache
 /phpunit-filter.php
 /coverage
+/build
+
+# PHP CS Fixer
+.php-cs-fixer.cache
 
 ###> symfony/framework-bundle ###
 /.env.local

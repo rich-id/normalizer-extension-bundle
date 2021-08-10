@@ -61,8 +61,8 @@ class DummyEntityNormalizerExtension extends AbstractObjectNormalizerExtension
 
 1. [Installation](#1-installation)
 2. [Getting started](#2-getting-started)
-        - [AbstractObjectNormalizerExtension](Docs/NormalizerExtension.md#abstractobjectnormalizerextension)
-        - [Write your own Normalizer Extension](Docs/NormalizerExtension.md#write-your-own-normalizer-extension)
+        - [AbstractObjectNormalizerExtension](docs/NormalizerExtension.md#abstractobjectnormalizerextension)
+        - [Write your own Normalizer Extension](docs/NormalizerExtension.md#write-your-own-normalizer-extension)
 4. [Versioning](#3-versioning)
 5. [Contributing](#4-contributing)
 6. [Hacking](#5-hacking)
@@ -90,9 +90,9 @@ new RichCongress\NormalizerExtensionBundle\RichCongressNormalizerExtensionBundle
 
 # 2. Getting started
 
-- [Normalizer Extension](Docs/NormalizerExtension.md)
-    - [AbstractObjectNormalizerExtension](Docs/NormalizerExtension.md#abstractobjectnormalizerextension)
-    - [Write your own Normalizer Extension](Docs/NormalizerExtension.md#write-your-own-normalizer-extension)
+- [Normalizer Extension](docs/NormalizerExtension.md)
+    - [AbstractObjectNormalizerExtension](docs/NormalizerExtension.md#abstractobjectnormalizerextension)
+    - [Write your own Normalizer Extension](docs/NormalizerExtension.md#write-your-own-normalizer-extension)
 
 
 # 3. Versioning
