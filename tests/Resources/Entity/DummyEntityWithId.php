@@ -12,8 +12,19 @@ namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity;
  */
 class DummyEntityWithId
 {
+    /** @var int */
+    public $id = 1;
+
+    /** @var DummyEntity */
+    public $dummyEntity;
+
     public function getId(): int
     {
-        return 1;
+        return $this->id;
+    }
+
+    public function getDummyEntity(): ?DummyEntity
+    {
+        return $this->dummyEntity;
     }
 }

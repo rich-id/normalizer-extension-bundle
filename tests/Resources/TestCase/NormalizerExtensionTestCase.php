@@ -29,7 +29,12 @@ class NormalizerExtensionTestCase extends TestCase
     public function setUp(): void
     {
         $this->setUpTestCase();
+        $this->initNormalizer();
+        $this->beforeTest();
+    }
 
+    private function initNormalizer(): void
+    {
         if (WebTestCase::isEnabled()) {
             /** @var NormalizerInterface $serializer */
             $serializer = $this->getService('serializer');
@@ -40,8 +45,6 @@ class NormalizerExtensionTestCase extends TestCase
 
         // In this conditions, the ObjectNormalizer will serialize ALL properties whatever the serialization groups
         $this->normalizer = new Serializer([new ObjectNormalizer()], [], [$this->normalizerExtension]);
-
-        $this->beforeTest();
     }
 
     /**

@@ -30,6 +30,7 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
             'normalizer_attribute_with_default' => 'normalizerAttributeWithDefault',
             'entity_boolean'                    => 'isEntityBoolean',
             'no_functions'                      => 'noFunction',
+            'raises_exception'                  => 'raisesException',
         ];
     }
 
@@ -66,5 +67,10 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
     public function getNormalizerAttributeWithDefault(DummyEntity $entity): string
     {
         return $this->getAttributeWithDefault('bad_attribute', 'fallback');
+    }
+
+    public function getRaisesException(DummyEntity $entity): void
+    {
+        throw new \Exception();
     }
 }
