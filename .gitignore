@@ -30,3 +30,5 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+cghooks.lock
+

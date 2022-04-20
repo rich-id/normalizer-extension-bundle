@@ -8,6 +8,8 @@ use Psr\Cache\CacheItemPoolInterface;
 
 abstract class AbstractBatch
 {
+    protected const CACHE_LIFETIME = null;
+
     /** @var CacheItemPoolInterface */
     private $cache;
 
@@ -70,6 +72,11 @@ abstract class AbstractBatch
     private function setCachedValue($key, $value): void
     {
         $cacheItem = $this->cache->getItem(\get_class($this) . (string) $key)->set($value);
+
+        if (static::CACHE_LIFETIME !== null) {
+            $cacheItem->expiresAfter(new \DateInterval(static::CACHE_LIFETIME));
+        }
+
         $this->cache->save($cacheItem);
     }
 
