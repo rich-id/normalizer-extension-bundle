@@ -114,7 +114,7 @@ use RichCongress\NormalizerExtensionBundle\Serializer\Batch\AbstractBatch;
 
 class DummyBatch extends AbstractBatch
 {
-    protected const CACHE_LIFETIME = 'PT1H'; // Here you can define the validity period of the cache (default null)
+    protected const CACHE_LIFETIME = 'PT1H'; // Here you can define the validity period of the cache (default null, no expiration)
 
     /**
      * @param array<array-key> $keys
