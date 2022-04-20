@@ -9,7 +9,7 @@ This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/richcongress/normalizer-extension-bundle/issues)
 [![License](https://img.shields.io/badge/license-MIT-red.svg)](LICENSE.md)
 
-The normalizer-extension-bundle provides extended functionnalities for the Symfony Serializer.
+The normalizer-extension-bundle provides extended functionalities for the Symfony Serializer.
 
 
 # Quick start

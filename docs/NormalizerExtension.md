@@ -68,6 +68,69 @@ public function isBeautifulEnough(): bool
 }   
 ```
 
+### Batch normalization
+
+If you have to perform a database query or call a rest api to compute the normalized value you may run into performance issues. One way to fix it is to batch similar requests into one. 
+
+First you need to add your computation to a batch with an id:
+
+```php
+use RichCongress\NormalizerExtensionBundle\Serializer\Batch\DeferredValue
+use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
+
+class DummyEntityNormalizerExtension extends AbstractObjectNormalizerExtension
+{
+    public static $objectClass = DummyEntity::class;
+    public static $contextPrefix = 'dummy_entity_';
+
+    /** @var DummyBatch */
+    protected $dummyBatch;
+
+    public function __construct(DummyBatch $dummyBatch)
+    {
+        $this->dummyBatch = $dummyBatch;
+    }
+
+    public static function getSupportedGroups(): array
+    {
+        return [
+            'batched_value' => 'batchedValue',
+        ];
+    }
+
+    public function batchedValue(DummyEntity $entity): DeferredValue
+    {
+        // Return a placeholder value that will be resolved later once we're done adding elements to the batch
+        // You provide a key that will be used as cache key and as an id in the batch query.
+        return $this->dummyBatch->defer($entity->getId())
+    }   
+}
+```
+
+Second you need to provide the query:
+
+```php
+use RichCongress\NormalizerExtensionBundle\Serializer\Batch\AbstractBatch;
+
+class DummyBatch extends AbstractBatch
+{
+    protected const CACHE_LIFETIME = 'PT1H'; // Here you can define the validity period of the cache (default null, no expiration)
+
+    /**
+     * @param array<array-key> $keys
+     *
+     * @return array<array-key, mixed>
+     */
+    public function query(array $keys): array
+    {
+        // Here you have the list of keys in the batch to resolve.
+        // You must return a list of key => value pairs where
+        // the key is the batch key and
+        // the value is the normalized data for that key.
+    }
+}
+```
+
 ## Write your own Normalizer Extension
 
 To write your own Normalizer Extension, create your class and implements the `NormalizerExtensionInterface`.

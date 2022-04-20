@@ -1,5 +1,9 @@
 # Changelog
 
+# v2.1.0
+
+- Add batching with cache
+
 # v2.0.0
 
 - Add Symfony 5 and PHP 8 support
