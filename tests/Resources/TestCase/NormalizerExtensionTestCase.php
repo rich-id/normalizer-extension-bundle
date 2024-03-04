@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\TestCase;
 
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
-use RichCongress\NormalizerExtensionBundle\Serializer\Serializer;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * Class NormalizerExtensionTestCase.
@@ -18,6 +17,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
+#[TestConfig('container')]
 class NormalizerExtensionTestCase extends TestCase
 {
     /** @var NormalizerExtensionInterface */
@@ -35,16 +35,13 @@ class NormalizerExtensionTestCase extends TestCase
 
     private function initNormalizer(): void
     {
-        if (WebTestCase::isEnabled()) {
-            /** @var NormalizerInterface $serializer */
-            $serializer = $this->getService('serializer');
-            $this->normalizer = $serializer;
-
-            return;
+        if (!WebTestCase::isEnabled()) {
+            throw new \LogicException('Missing container');
         }
 
-        // In this conditions, the ObjectNormalizer will serialize ALL properties whatever the serialization groups
-        $this->normalizer = new Serializer([new ObjectNormalizer()], [], [$this->normalizerExtension]);
+        /** @var NormalizerInterface $serializer */
+        $serializer = $this->getService('serializer');
+        $this->normalizer = $serializer;
     }
 
     /**

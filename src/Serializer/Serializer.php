@@ -6,6 +6,7 @@ namespace RichCongress\NormalizerExtensionBundle\Serializer;
 
 use RichCongress\NormalizerExtensionBundle\Serializer\Batch\DeferredValue;
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\NormalizerExtensionInterface;
+use Symfony\Component\Serializer\Serializer as BaseSerializer;
 
 /**
  * Class Serializer.
@@ -13,7 +14,7 @@ use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\Norma
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class Serializer extends \Symfony\Component\Serializer\Serializer
+class Serializer extends BaseSerializer
 {
     /** @var NormalizerExtensionInterface[] */
     protected $extensions = [];
@@ -23,25 +24,21 @@ class Serializer extends \Symfony\Component\Serializer\Serializer
 
     /**
      * {@inheritdoc}
-     *
-     * @param NormalizerExtensionInterface[] $extensions
      */
-    public function __construct(array $normalizers = [], array $encoders = [], array $extensions = [])
+    public function __construct(array $normalizers = [], array $encoders = [])
     {
         parent::__construct($normalizers, $encoders);
-
-        $this->extensions = $extensions;
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @param mixed                $data
-     * @param array<string, mixed> $context
-     *
-     * @return array<string, mixed>|string|int|float|bool|\ArrayObject<string, mixed>|DeferredValue|null
+     * @param NormalizerExtensionInterface[] $extensions
      */
-    public function normalize($data, ?string $format = null, array $context = [])
+    public function setExtensions(array $extensions = []): void
+    {
+        $this->extensions = $extensions;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $isRoot = $this->isRoot;
         $this->isRoot = false;

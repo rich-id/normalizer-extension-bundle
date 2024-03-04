@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace RichCongress\NormalizerExtensionBundle\Tests\Handler;
 
 use RichCongress\NormalizerExtensionBundle\Serializer\Handler\CircularReferenceHandler;
-use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntity;
-use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntityWithId;
-use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntityWithKeyname;
+use RichCongress\NormalizerExtensionBundle\Tests\Resources\Model\DummyModel;
+use RichCongress\NormalizerExtensionBundle\Tests\Resources\Model\DummyModelWithId;
+use RichCongress\NormalizerExtensionBundle\Tests\Resources\Model\DummyModelWithKeyname;
 use RichCongress\TestSuite\TestCase\TestCase;
 
 /**
@@ -30,15 +30,15 @@ class CircularReferenceHandlerTest extends TestCase
 
     public function testInvoke(): void
     {
-        $entity = new DummyEntityWithId();
+        $entity = new DummyModelWithId();
         $result = ($this->handler)($entity, null, []);
         self::assertSame(1, $result);
 
-        $entity = new DummyEntityWithKeyname();
+        $entity = new DummyModelWithKeyname();
         $result = ($this->handler)($entity, null, []);
         self::assertSame('the_keyname', $result);
 
-        $entity = new DummyEntity();
+        $entity = new DummyModel();
         $result = ($this->handler)($entity, null, []);
         self::assertNull($result);
     }

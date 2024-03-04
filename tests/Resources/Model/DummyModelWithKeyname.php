@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity;
+namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Model;
 
 /**
  * Class DummyEntityWithKeyname.
@@ -10,7 +10,7 @@ namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class DummyEntityWithKeyname
+class DummyModelWithKeyname
 {
     public function getKeyname(): string
     {

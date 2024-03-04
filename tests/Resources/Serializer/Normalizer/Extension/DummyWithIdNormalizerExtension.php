@@ -6,13 +6,14 @@ namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Serializer\Norm
 
 use RichCongress\NormalizerExtensionBundle\Serializer\Batch\DeferredValue;
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
-use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntityWithId;
+use RichCongress\NormalizerExtensionBundle\Tests\Resources\Model\DummyModelWithId;
 use RichCongress\NormalizerExtensionBundle\Tests\Resources\Serializer\Batch\DummyBatch;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class DummyWithIdNormalizerExtension extends AbstractObjectNormalizerExtension
 {
-    public static $objectClass = DummyEntityWithId::class;
+    public static $objectClass = DummyModelWithId::class;
     public static $contextPrefix = 'dummy_entity_with_id_';
 
     /** @var DummyBatch */
@@ -21,7 +22,7 @@ class DummyWithIdNormalizerExtension extends AbstractObjectNormalizerExtension
     /** @var NormalizerInterface */
     protected $normalizer;
 
-    /** @Required */
+    #[Required]
     public function setDummyBatch(DummyBatch $dummyBatch): self
     {
         $this->dummyBatch = $dummyBatch;
@@ -29,7 +30,7 @@ class DummyWithIdNormalizerExtension extends AbstractObjectNormalizerExtension
         return $this;
     }
 
-    /** @Required */
+    #[Required]
     public function setNormalizer(NormalizerInterface $normalizer): self
     {
         $this->normalizer = $normalizer;
@@ -47,13 +48,13 @@ class DummyWithIdNormalizerExtension extends AbstractObjectNormalizerExtension
         ];
     }
 
-    public function getBatchedValue(DummyEntityWithId $entity): DeferredValue
+    public function getBatchedValue(DummyModelWithId $entity): DeferredValue
     {
         return $this->dummyBatch->defer($entity->getId());
     }
 
     /** @return array<string, mixed>|string|int|float|bool|\ArrayObject<string, mixed>|DeferredValue|null */
-    public function getDummyEntityCatchException(DummyEntityWithId $entity)
+    public function getDummyEntityCatchException(DummyModelWithId $entity)
     {
         try {
             return $this->normalizer->normalize($entity->getDummyEntity(), null, $this->context);
@@ -63,7 +64,7 @@ class DummyWithIdNormalizerExtension extends AbstractObjectNormalizerExtension
     }
 
     /** @return array<string, mixed>|string|int|float|bool|\ArrayObject<string, mixed>|DeferredValue|null */
-    public function getDummyEntityNoCatchException(DummyEntityWithId $entity)
+    public function getDummyEntityNoCatchException(DummyModelWithId $entity)
     {
         return $this->normalizer->normalize($entity->getDummyEntity(), null, $this->context);
     }

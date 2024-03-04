@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RichCongress\NormalizerExtensionBundle\Serializer\Batch;
 
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Contracts\Service\Attribute\Required;
 
 abstract class AbstractBatch
 {
@@ -16,7 +17,7 @@ abstract class AbstractBatch
     /** @var array<array-key, DeferredValue> */
     private $deferredValues = [];
 
-    /** @Required */
+    #[Required]
     public function setCacheItemPool(CacheItemPoolInterface $cache): self
     {
         $this->cache = $cache;

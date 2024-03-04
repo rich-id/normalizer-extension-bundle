@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace RichCongress\NormalizerExtensionBundle\Tests\Serializer;
 
 use RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException;
-use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntity;
-use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntityWithId;
+use RichCongress\NormalizerExtensionBundle\Tests\Resources\Model\DummyModel;
+use RichCongress\NormalizerExtensionBundle\Tests\Resources\Model\DummyModelWithId;
 use RichCongress\NormalizerExtensionBundle\Tests\Resources\Serializer\Batch\DummyBatch;
 use RichCongress\NormalizerExtensionBundle\Tests\Resources\TestCase\NormalizerExtensionTestCase;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
@@ -22,8 +21,6 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
  * @covers \RichCongress\NormalizerExtensionBundle\Serializer\Serializer
  * @covers \RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension
  * @covers \RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException
- *
- * @TestConfig("container")
  */
 class SerializerTest extends NormalizerExtensionTestCase
 {
@@ -40,7 +37,7 @@ class SerializerTest extends NormalizerExtensionTestCase
     /** @throws ExceptionInterface */
     public function testNormalizeDummyEntitySuccessfully(): void
     {
-        $entity = new DummyEntity();
+        $entity = new DummyModel();
         $entity->booleanValue = false;
 
         /** @var array<string, mixed> $data */
@@ -76,7 +73,7 @@ class SerializerTest extends NormalizerExtensionTestCase
     /** @throws ExceptionInterface */
     public function testNormalizeDummyEntityWithSkip(): void
     {
-        $entity = new DummyEntity();
+        $entity = new DummyModel();
         $entity->booleanValue = true;
 
         /** @var array<string, mixed> $data */
@@ -102,7 +99,7 @@ class SerializerTest extends NormalizerExtensionTestCase
     /** @throws ExceptionInterface */
     public function testNormalizeWithAttributeException(): void
     {
-        $entity = new DummyEntity();
+        $entity = new DummyModel();
 
         $this->expectException(AttributeNotFoundException::class);
 
@@ -121,7 +118,7 @@ class SerializerTest extends NormalizerExtensionTestCase
     /** @throws ExceptionInterface */
     public function testNormalizeWithNoFunction(): void
     {
-        $entity = new DummyEntity();
+        $entity = new DummyModel();
 
         $this->expectException(\LogicException::class);
 
@@ -147,9 +144,9 @@ class SerializerTest extends NormalizerExtensionTestCase
     {
         self::assertEquals([], $this->dummyBatch->calls);
 
-        $entity1 = new DummyEntityWithId();
+        $entity1 = new DummyModelWithId();
         $entity1->id = 1;
-        $entity2 = new DummyEntityWithId();
+        $entity2 = new DummyModelWithId();
         $entity2->id = 2;
 
         /** @var array<string, mixed> $data */
@@ -173,9 +170,9 @@ class SerializerTest extends NormalizerExtensionTestCase
     {
         self::assertEquals([], $this->dummyBatch->calls);
 
-        $entity1 = new DummyEntityWithId();
+        $entity1 = new DummyModelWithId();
         $entity1->id = 1;
-        $entity2 = new DummyEntityWithId();
+        $entity2 = new DummyModelWithId();
         $entity2->id = 1;
 
         /** @var array<string, mixed> $data */
@@ -199,9 +196,9 @@ class SerializerTest extends NormalizerExtensionTestCase
     {
         self::assertEquals([], $this->dummyBatch->calls);
 
-        $entity1 = new DummyEntityWithId();
+        $entity1 = new DummyModelWithId();
         $entity1->id = 1;
-        $entity2 = new DummyEntityWithId();
+        $entity2 = new DummyModelWithId();
         $entity2->id = 2;
 
         /** @var array<string, mixed> $data */
@@ -241,9 +238,9 @@ class SerializerTest extends NormalizerExtensionTestCase
     {
         self::assertEquals([], $this->dummyBatch->calls);
 
-        $entity1 = new DummyEntityWithId();
+        $entity1 = new DummyModelWithId();
         $entity1->id = 1;
-        $entity2 = new DummyEntityWithId();
+        $entity2 = new DummyModelWithId();
         $entity2->id = 2;
         $this->dummyBatch->ignoredKey = 2;
 
@@ -266,9 +263,9 @@ class SerializerTest extends NormalizerExtensionTestCase
 
     public function testBatchCorrectlyTrackRecursionInThePresenceOfExceptionsInTheMiddleOfTheStack(): void
     {
-        $entity = new DummyEntityWithId();
+        $entity = new DummyModelWithId();
         $entity->id = 1;
-        $entity->dummyEntity = new DummyEntity();
+        $entity->dummyEntity = new DummyModel();
 
         /** @var array<string, mixed> $data */
         $data = $this->normalizer->normalize(
@@ -309,9 +306,9 @@ class SerializerTest extends NormalizerExtensionTestCase
 
     public function testBatchCorrectlyTrackRecursionInThePresenceOfExceptionsThatBlowsTheWholeStack(): void
     {
-        $entity = new DummyEntityWithId();
+        $entity = new DummyModelWithId();
         $entity->id = 1;
-        $entity->dummyEntity = new DummyEntity();
+        $entity->dummyEntity = new DummyModel();
 
         try {
             /** @var array<string, mixed> $data */

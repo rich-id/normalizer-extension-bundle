@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity;
+namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Model;
 
 /**
  * Class DummyEntityWithId.
@@ -10,12 +10,12 @@ namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class DummyEntityWithId
+class DummyModelWithId
 {
     /** @var int */
     public $id = 1;
 
-    /** @var DummyEntity */
+    /** @var DummyModel */
     public $dummyEntity;
 
     public function getId(): int
@@ -23,7 +23,7 @@ class DummyEntityWithId
         return $this->id;
     }
 
-    public function getDummyEntity(): ?DummyEntity
+    public function getDummyEntity(): ?DummyModel
     {
         return $this->dummyEntity;
     }

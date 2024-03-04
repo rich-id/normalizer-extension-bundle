@@ -2,26 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity;
+namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 /**
  * Class DummyEntity.
  *
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2019 RichCongress (https://www.richcongress.com)
- *
- * @ORM\Entity
  */
-class DummyEntity
+class DummyModel
 {
-    /**
-     * @var bool
-     *
-     * @Groups({"dummy_entity_boolean_value"})
-     */
+    #[Groups(['dummy_entity_boolean_value'])]
     public $booleanValue;
 
     public function isEntityBoolean(): bool

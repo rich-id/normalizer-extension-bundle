@@ -7,7 +7,7 @@ namespace RichCongress\NormalizerExtensionBundle\Tests\Resources\Serializer\Norm
 use RichCongress\NormalizerExtensionBundle\Exception\AttributeNotFoundException;
 use RichCongress\NormalizerExtensionBundle\Exception\SkipSerializationException;
 use RichCongress\NormalizerExtensionBundle\Serializer\Normalizer\Extension\AbstractObjectNormalizerExtension;
-use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntity;
+use RichCongress\NormalizerExtensionBundle\Tests\Resources\Model\DummyModel;
 
 /**
  * Class DummyNormalizerExtension.
@@ -17,7 +17,7 @@ use RichCongress\NormalizerExtensionBundle\Tests\Resources\Entity\DummyEntity;
  */
 class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
 {
-    public static $objectClass = DummyEntity::class;
+    public static $objectClass = DummyModel::class;
     public static $contextPrefix = 'dummy_entity_';
 
     /** @return array<string, string> */
@@ -35,7 +35,7 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
     }
 
     /** @throws SkipSerializationException */
-    public function getNormalizerField(DummyEntity $entity): string
+    public function getNormalizerField(DummyModel $entity): string
     {
         if ($entity->booleanValue === true) {
             throw new SkipSerializationException('Skipped');
@@ -49,7 +49,7 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
      *
      * @throws AttributeNotFoundException
      */
-    public function getNormalizerAttribute(DummyEntity $entity): array
+    public function getNormalizerAttribute(DummyModel $entity): array
     {
         return $this->getAttribute('attribute');
     }
@@ -59,17 +59,17 @@ class DummyNormalizerExtension extends AbstractObjectNormalizerExtension
      *
      * @throws AttributeNotFoundException
      */
-    public function getNormalizerBadAttribute(DummyEntity $entity): array
+    public function getNormalizerBadAttribute(DummyModel $entity): array
     {
         return $this->getAttribute('bad_attribute');
     }
 
-    public function getNormalizerAttributeWithDefault(DummyEntity $entity): string
+    public function getNormalizerAttributeWithDefault(DummyModel $entity): string
     {
         return $this->getAttributeWithDefault('bad_attribute', 'fallback');
     }
 
-    public function getRaisesException(DummyEntity $entity): void
+    public function getRaisesException(DummyModel $entity): void
     {
         throw new \Exception();
     }
