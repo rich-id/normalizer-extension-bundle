@@ -1,7 +1,7 @@
 Getting Started With RichCongressNormalizerExtensionBundle
 =======================================
 
-This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 6.0+ and PHP 8.1+.
 
 [![Package version](https://img.shields.io/packagist/v/richcongress/normalizer-extension-bundle)](https://packagist.org/packages/richcongress/normalizer-extension-bundle)
 [![Build Status](https://img.shields.io/travis/richcongress/normalizer-extension-bundle.svg?branch=master)](https://travis-ci.org/richcongress/normalizer-extension-bundle?branch=master)
@@ -71,7 +71,7 @@ class DummyEntityNormalizerExtension extends AbstractObjectNormalizerExtension
 
 # 1. Installation
 
-This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 6.0+ and PHP 8.1+.
 
 ### 1.1 Composer
 

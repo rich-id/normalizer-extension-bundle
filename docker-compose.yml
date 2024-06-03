@@ -1,4 +1,3 @@
-version: '3.3'
 services:
     application:
         container_name: normalizer_extension_bundle_app
