@@ -72,11 +72,14 @@ abstract class AbstractBatch
      */
     private function setCachedValue($key, $value): void
     {
-        $cacheItem = $this->cache->getItem(\get_class($this) . (string) $key)->set($value);
+        $cacheLifetime = static::CACHE_LIFETIME;
 
-        if (static::CACHE_LIFETIME !== null) {
-            $cacheItem->expiresAfter(new \DateInterval(static::CACHE_LIFETIME));
+        if ($cacheLifetime === null) {
+            return;
         }
+
+        $cacheItem = $this->cache->getItem(\get_class($this) . (string) $key)->set($value);
+        $cacheItem->expiresAfter(new \DateInterval($cacheLifetime));
 
         $this->cache->save($cacheItem);
     }
@@ -88,6 +91,10 @@ abstract class AbstractBatch
      */
     private function getCachedValue($key)
     {
+        if (static::CACHE_LIFETIME === null) {
+            return null;
+        }
+
         return $this->cache->getItem(\get_class($this) . (string) $key)->get();
     }
 }
