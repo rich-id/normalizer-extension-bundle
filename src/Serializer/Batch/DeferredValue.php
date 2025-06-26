@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace RichCongress\NormalizerExtensionBundle\Serializer\Batch;
 
+/** @template T */
 final class DeferredValue
 {
-    /** @var mixed */
+    /** @var T */
     private $value;
 
-    /** @var AbstractBatch */
+    /** @var AbstractBatch<T> */
     private $batch;
 
-    /** @param mixed $value */
+    /** @param T $value */
     public function setValue($value): self
     {
         $this->value = $value;
@@ -20,7 +21,7 @@ final class DeferredValue
         return $this;
     }
 
-    /** @return mixed */
+    /** @return T */
     public function getValue()
     {
         if ($this->batch !== null && $this->value === null) {
@@ -30,6 +31,7 @@ final class DeferredValue
         return $this->value;
     }
 
+    /** @param AbstractBatch<T> $batch */
     public static function deferred(AbstractBatch $batch): self
     {
         $deferredValue = new self();
@@ -38,7 +40,7 @@ final class DeferredValue
         return $deferredValue;
     }
 
-    /** @param mixed $value */
+    /** @param T $value */
     public static function resolved($value): self
     {
         $deferredValue = new self();
