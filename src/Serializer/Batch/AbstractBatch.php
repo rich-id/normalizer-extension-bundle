@@ -7,6 +7,7 @@ namespace RichCongress\NormalizerExtensionBundle\Serializer\Batch;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
+/** @template T */
 abstract class AbstractBatch
 {
     protected const CACHE_LIFETIME = null;
@@ -14,7 +15,7 @@ abstract class AbstractBatch
     /** @var CacheItemPoolInterface */
     private $cache;
 
-    /** @var array<array-key, DeferredValue> */
+    /** @var array<array-key, DeferredValue<T>> */
     private $deferredValues = [];
 
     #[Required]
@@ -25,8 +26,11 @@ abstract class AbstractBatch
         return $this;
     }
 
-    /** @param array-key $key */
-    public function defer($key): DeferredValue
+    /**
+     * @param array-key $key
+     * @return DeferredValue<T>
+     */
+    public function defer(mixed $key): DeferredValue
     {
         $cachedValue = $this->getCachedValue($key);
 
@@ -62,15 +66,15 @@ abstract class AbstractBatch
     /**
      * @param array<array-key> $keys
      *
-     * @return array<array-key, mixed>
+     * @return array<array-key, T>
      */
     abstract protected function query(array $keys): array;
 
     /**
      * @param array-key $key
-     * @param mixed     $value
+     * @param T         $value
      */
-    private function setCachedValue($key, $value): void
+    private function setCachedValue(mixed $key, mixed $value): void
     {
         $cacheLifetime = static::CACHE_LIFETIME;
 
@@ -87,9 +91,9 @@ abstract class AbstractBatch
     /**
      * @param array-key $key
      *
-     * @return mixed
+     * @return T
      */
-    private function getCachedValue($key)
+    private function getCachedValue(mixed $key): mixed
     {
         if (static::CACHE_LIFETIME === null) {
             return null;
